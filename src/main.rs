@@ -21,7 +21,7 @@ struct AppState {
 }
 
 impl AppState {
-    fn create_initial_app_state() -> AppState {
+    fn new() -> AppState {
         let app_state = AppState {
             color: Color::Blue,
             is_daytime: true,
@@ -31,12 +31,26 @@ impl AppState {
 
         return app_state
     }
+
+    fn receive_mutation(current_state: Self, mutation: &str) -> AppState {
+        match mutation {
+            "make_false" => {
+                AppState { is_daytime: false, ..current_state }
+            }
+            _ => {
+                AppState { ..current_state }
+            }
+        }
+    }
 }
 
 fn main() {
-    let state = AppState::create_initial_app_state();
+    let state = AppState::new();
+    println!("{:?}", state);
 
-    println!("{:?}", state)
+    let updated_state = AppState::receive_mutation(state, "make_false");
+    println!("{:?}", updated_state)
+
 }
 
 // state is:
