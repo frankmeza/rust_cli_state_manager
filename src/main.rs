@@ -1,17 +1,10 @@
-enum MutationType {
-    ChangeEditedBy,
-}
-
-struct Mutation {
-    key: MutationType,
-    value: String,
+enum Mutation {
+    ChangeEditedBy(String),
 }
 
 #[derive(Debug)]
 enum Color {
     Blue,
-    // Red,
-    // Yellow,
 }
 
 #[derive(Debug)]
@@ -35,18 +28,15 @@ impl AppState {
     }
 
     fn receive_mutation(current_state: Self, mutation: Mutation) -> AppState {
-        match mutation.key {
-            MutationType::ChangeEditedBy => AppState {
-                edited_by: mutation.value, ..current_state
+        match mutation {
+            Mutation::ChangeEditedBy(edited_by) => AppState {
+                edited_by, ..current_state
             },
         }
     }
 
     fn init_mutations() -> Mutation {
-        Mutation {
-            key: MutationType::ChangeEditedBy,
-            value: String::from("edited_by"),
-        }
+        Mutation::ChangeEditedBy(String::from("edited_by"))
     }
 }
 
