@@ -3,7 +3,8 @@ pub enum Mutation {
     ChangeEditedBy(String),
     ChangeIsDayTime(String),
     ChangeColor(String),
-    ChangeNumber(String, String),
+    ChangeNumberIncrement(String),
+    ChangeNumberDecrement(String),
 
     Nothing(),
 }

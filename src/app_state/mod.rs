@@ -33,24 +33,25 @@ impl AppState {
     pub fn receive_mutation(current_state: Self, mutation: &Mutation) -> AppState {
         match mutation {
             // change color
-            Mutation::ChangeColor(color) => utils::handle_change_color(color, current_state),
+            Mutation::ChangeColor(color) => utils::handle_change_color(
+                color,
+                current_state,
+            ),
 
             // change edited_by
-            Mutation::ChangeEditedBy(edited_by) => AppState {
-                edited_by: edited_by.to_string(), ..current_state
-            },
+            Mutation::ChangeEditedBy(edited_by) => utils::handle_change_edited_by(
+                edited_by,
+                current_state,
+            ),
 
             // change is_daytime
-            Mutation::ChangeIsDayTime(value) => {
-                let is_daytime = if value == "true" { true } else { false };
-
-                AppState {
-                    is_daytime, ..current_state
-                }
-            },
+            Mutation::ChangeIsDayTime(value) => utils::handle_change_is_daytime(
+                value,
+                current_state,
+            ),
 
             // change number
-            Mutation::ChangeNumber(num, direction) => {
+            Mutation::ChangeNumberIncrement(num) => {
                  let number: i32 = num.parse().unwrap();
 
                  if direction == "UP" {
