@@ -1,6 +1,8 @@
 // use crate::app_state::mutation::Mutation;
 
 mod mutation;
+mod utils;
+
 use mutation::Mutation;
 
 #[derive(Debug)]
@@ -30,29 +32,15 @@ impl AppState {
 
     pub fn receive_mutation(current_state: Self, mutation: &Mutation) -> AppState {
         match mutation {
-////////////
-            Mutation::ChangeColor(color) => {
-                if color == "BLUE" {
-                    AppState { color: Color::Blue, ..current_state }
+            // change color
+            Mutation::ChangeColor(color) => utils::handle_change_color(color, current_state),
 
-                } else if color == "RED" {
-                    AppState { color: Color::Red, ..current_state }
-
-                } else if color == "YELLOW" {
-                    AppState { color: Color::Yellow, ..current_state }
-
-                } else {
-                    println!("SOMETHING_DEFAULTED!!!");
-                    AppState { ..current_state }
-                }
-            },
-
-////////////
+            // change edited_by
             Mutation::ChangeEditedBy(edited_by) => AppState {
                 edited_by: edited_by.to_string(), ..current_state
             },
 
-////////////
+            // change is_daytime
             Mutation::ChangeIsDayTime(value) => {
                 let is_daytime = if value == "true" { true } else { false };
 
@@ -61,8 +49,8 @@ impl AppState {
                 }
             },
 
-////////////
-             Mutation::ChangeNumber(num, direction) => {
+            // change number
+            Mutation::ChangeNumber(num, direction) => {
                  let number: i32 = num.parse().unwrap();
 
                  if direction == "UP" {
@@ -78,9 +66,9 @@ impl AppState {
                  } else {
                      AppState { ..current_state }
                  }
-             }
+             },
 
-////////////
+            // default
             Mutation::Nothing() => AppState { ..current_state }
         }
     }
