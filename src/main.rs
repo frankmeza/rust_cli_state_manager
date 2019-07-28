@@ -1,5 +1,9 @@
+enum MutationType {
+    ChangeEditedBy,
+}
+
 struct Mutation {
-    key: String,
+    key: MutationType,
     value: String,
 }
 
@@ -31,15 +35,17 @@ impl AppState {
     }
 
     fn receive_mutation(current_state: Self, mutation: Mutation) -> AppState {
-        // let edited = "edited_by";
+        match mutation.key {
+            MutationType::ChangeEditedBy => AppState {
+                edited_by: mutation.value, ..current_state
+            },
+        }
+    }
 
-        match mutation.key.trim() {
-            "edited_by" => {
-                AppState { edited_by: mutation.value, ..current_state }
-            }
-            _ => {
-                AppState { ..current_state }
-            }
+    fn init_mutations() -> Mutation {
+        Mutation {
+            key: MutationType::ChangeEditedBy,
+            value: String::from("edited_by"),
         }
     }
 }
@@ -48,14 +54,10 @@ fn main() {
     let state = AppState::new();
     println!("{:?}", state);
 
-    let m = Mutation {
-        key: String::from("edited_by"),
-        value: String::from("edited_by"),
-    };
+    let mutations = AppState::init_mutations();
 
-    let updated_state = AppState::receive_mutation(state, m);
-    println!("{:?}", updated_state)
-
+    let updated_state = AppState::receive_mutation(state, mutations);
+    println!("{:?}", updated_state);
 }
 
 // state is:
