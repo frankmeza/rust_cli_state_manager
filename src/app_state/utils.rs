@@ -40,23 +40,22 @@ pub fn handle_change_is_daytime(
     }
 }
 
-// pub fn handle_change_number_increment(
-//     number_as_string: &String,
-//     current_state: AppState,
-// ) -> AppState {
-//     let number: i32 = num.parse().unwrap();
+pub fn handle_change_number_increase(
+    number_as_string: &String,
+    current_state: AppState,
+) -> AppState {
+    let number: i32 = number_as_string.parse().unwrap();
+    let new_number = current_state.number + number;
 
-//     if direction == "UP" {
-//         let new_number = current_state.number + number;
+    AppState { number: new_number, ..current_state }
+}
 
-//         AppState { number: new_number, ..current_state }
+pub fn handle_change_number_decrease(
+    number_as_string: &String,
+    current_state: AppState,
+) -> AppState {
+    let number: i32 = number_as_string.parse().unwrap();
+    let new_number = current_state.number - number;
 
-//     } else if direction == "DOWN" {
-//         let new_number = current_state.number - number;
-
-//         AppState { number: new_number, ..current_state }
-
-//     } else {
-//         AppState { ..current_state }
-//     }
-// }
+    AppState { number: new_number, ..current_state }
+}
