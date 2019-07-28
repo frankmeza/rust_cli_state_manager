@@ -17,26 +17,27 @@ struct AppState {
 
 impl AppState {
     fn new() -> AppState {
-        let app_state = AppState {
+        AppState {
             color: Color::Blue,
             is_daytime: true,
             edited_by: String::from("fraaank"),
             number: 0,
-        };
-
-        return app_state
+        }
     }
 
-    fn receive_mutation(current_state: Self, mutation: Mutation) -> AppState {
+    fn receive_mutation(current_state: Self, mutation: &Mutation) -> AppState {
         match mutation {
             Mutation::ChangeEditedBy(edited_by) => AppState {
-                edited_by, ..current_state
+                edited_by: edited_by.to_string(), ..current_state
             },
         }
     }
 
-    fn init_mutations() -> Mutation {
-        Mutation::ChangeEditedBy(String::from("edited_by"))
+    fn init_mutations() -> Vec<Mutation> {
+        vec![
+            Mutation::ChangeEditedBy(String::from("edited_by")),
+            Mutation::ChangeEditedBy(String::from("edited_by")),
+        ]
     }
 }
 
@@ -46,7 +47,8 @@ fn main() {
 
     let mutations = AppState::init_mutations();
 
-    let updated_state = AppState::receive_mutation(state, mutations);
+    let m = mutations.get(0).unwrap();
+    let updated_state = AppState::receive_mutation(state, m);
     println!("{:?}", updated_state);
 }
 
