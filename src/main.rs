@@ -1,9 +1,7 @@
-// enum MutationType {
-//     CHANGE_COLOR,
-//     CHANGE_NUMBER,
-//     CHANGE_IS_DAYTIME,
-//     CHANGE_EDITED_BY,
-// }
+struct Mutation {
+    key: String,
+    value: String,
+}
 
 #[derive(Debug)]
 enum Color {
@@ -25,17 +23,19 @@ impl AppState {
         let app_state = AppState {
             color: Color::Blue,
             is_daytime: true,
-            edited_by: "fraaank".to_string(),
+            edited_by: String::from("fraaank"),
             number: 0,
         };
 
         return app_state
     }
 
-    fn receive_mutation(current_state: Self, mutation: &str) -> AppState {
-        match mutation {
-            "make_false" => {
-                AppState { is_daytime: false, ..current_state }
+    fn receive_mutation(current_state: Self, mutation: Mutation) -> AppState {
+        // let edited = "edited_by";
+
+        match mutation.key.trim() {
+            "edited_by" => {
+                AppState { edited_by: mutation.value, ..current_state }
             }
             _ => {
                 AppState { ..current_state }
@@ -48,7 +48,12 @@ fn main() {
     let state = AppState::new();
     println!("{:?}", state);
 
-    let updated_state = AppState::receive_mutation(state, "make_false");
+    let m = Mutation {
+        key: String::from("edited_by"),
+        value: String::from("edited_by"),
+    };
+
+    let updated_state = AppState::receive_mutation(state, m);
     println!("{:?}", updated_state)
 
 }
