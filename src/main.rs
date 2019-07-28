@@ -25,14 +25,3 @@ fn main() {
 
     println!("\n UPDATED STATE IS {:?}", updated_state);
 }
-
-// state is:
-// color, blue red, yellow
-// number, 1, 10, 100
-// shape, circle triangle square
-// editor name
-
-// CHANGE_COLOR
-// INCREMENT, DECREMENT
-// CHANGE_BOOLEAN
-// EDITED_BY
