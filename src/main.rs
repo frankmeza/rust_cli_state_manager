@@ -38,26 +38,17 @@ impl AppState {
         }
     }
 
-    fn init_mutations() -> Vec<Mutation> {
-        vec![
-            Mutation::ChangeEditedBy(String::from("edited_by")),
-            Mutation::ChangeEditedBy(String::from("edited_by")),
-        ]
-    }
-
     fn create_mutation(mutation_type: &String, mutation_value: &String) -> Mutation {
-        let is_change_edited_by = mutation_type == "CHANGE_EDITED_BY";
+        let mutation = if mutation_type == "CHANGE_EDITED_BY" {
+            Mutation::ChangeEditedBy(mutation_value.to_string())
+        } else {
+            Mutation::Nothing()
+        };
 
-        match is_change_edited_by {
-             true => {
-                Mutation::ChangeEditedBy(mutation_value.to_string())
-            },
-            false => {
-                Mutation::Nothing()
-            }
-        }
+        mutation
     }
 }
+
 
 fn main() {
     let state = AppState::new();
@@ -72,10 +63,7 @@ fn main() {
     println!("{:?}", new_mutation);
     println!("{}: {}", mutation_type, mutation_value);
 
-    let mutations = AppState::init_mutations();
-
-    let m = mutations.get(0).unwrap();
-    let updated_state = AppState::receive_mutation(state, m);
+    let updated_state = AppState::receive_mutation(state, &new_mutation);
     println!("{:?}", updated_state);
 }
 
