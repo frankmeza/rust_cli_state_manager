@@ -3,6 +3,12 @@ mod utils;
 
 use mutation::Mutation;
 
+const CHANGE_EDITED_BY: &str = "CHANGE_EDITED_BY";
+const CHANGE_IS_DAYTIME: &str = "CHANGE_IS_DAYTIME";
+const CHANGE_COLOR: &str = "CHANGE_COLOR";
+const CHANGE_NUMBER_INCREMENT: &str = "CHANGE_NUMBER_INCREMENT";
+const CHANGE_NUMBER_DECREMENT: &str = "CHANGE_NUMBER_DECREMENT";
+
 #[derive(Debug)]
 pub enum Color {
     Blue,
@@ -21,9 +27,9 @@ pub struct AppState {
 impl AppState {
     pub fn new() -> AppState {
         AppState {
+            edited_by: String::from("fraaank"),
             color: Color::Blue,
             is_daytime: true,
-            edited_by: String::from("fraaank"),
             number: 0,
         }
     }
@@ -62,19 +68,19 @@ impl AppState {
     pub fn create_mutation(mutation_type: &String, mutation_value: &String) -> Mutation {
         let value = mutation_value.to_string();
 
-        let mutation = if mutation_type == "CHANGE_EDITED_BY" {
+        let mutation = if mutation_type == CHANGE_EDITED_BY {
             Mutation::ChangeEditedBy(value)
 
-        } else if mutation_type == "CHANGE_IS_DAYTIME" {
+        } else if mutation_type == CHANGE_IS_DAYTIME {
             Mutation::ChangeIsDayTime(value)
 
-        } else if mutation_type == "CHANGE_COLOR" {
+        } else if mutation_type == CHANGE_COLOR {
             Mutation::ChangeColor(value)
 
-        } else if mutation_type == "CHANGE_NUMBER_INCREMENT" {
+        } else if mutation_type == CHANGE_NUMBER_INCREMENT {
             Mutation::ChangeNumberIncrease(value)
 
-        } else if mutation_type == "CHANGE_NUMBER_DECREMENT" {
+        } else if mutation_type == CHANGE_NUMBER_DECREMENT {
             Mutation::ChangeNumberDecrease(value)
 
         } else {

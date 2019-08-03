@@ -5,6 +5,5 @@ pub enum Mutation {
     ChangeColor(String),
     ChangeNumberIncrease(String),
     ChangeNumberDecrease(String),
-
     Nothing(),
 }

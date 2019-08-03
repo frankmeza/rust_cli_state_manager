@@ -1,16 +1,21 @@
 use super::{AppState, Color};
 
+// colors
+const BLUE: &str ="BLUE";
+const RED: &str = "RED";
+const YELLOW: &str = "YELLOW";
+
 pub fn handle_change_color(
     color: &String,
     current_state: AppState,
 ) -> AppState {
-    if color == "BLUE" {
+    if color == BLUE {
         AppState { color: Color::Blue, ..current_state }
 
-    } else if color == "RED" {
+    } else if color == RED {
         AppState { color: Color::Red, ..current_state }
 
-    } else if color == "YELLOW" {
+    } else if color == YELLOW {
         AppState { color: Color::Yellow, ..current_state }
 
     } else {
