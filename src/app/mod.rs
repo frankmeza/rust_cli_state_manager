@@ -61,7 +61,7 @@ impl AppState {
             }
 
             // default
-            Mutation::Nothing() => AppState { ..current_state }
+            Mutation::NoMutation() => AppState { ..current_state }
         }
     }
 
@@ -84,7 +84,7 @@ impl AppState {
             Mutation::ChangeNumberDecrease(value)
 
         } else {
-            Mutation::Nothing()
+            Mutation::NoMutation()
         };
 
         mutation
