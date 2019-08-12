@@ -38,7 +38,9 @@ pub fn handle_change_is_daytime(
     is_daytime_bool: &String,
     current_state: AppState,
 ) -> AppState {
-    let is_daytime = if is_daytime_bool == "true" { true } else { false };
+    let is_daytime = if is_daytime_bool == "true"
+        { true }
+        else { false };
 
     AppState {
         is_daytime, ..current_state
