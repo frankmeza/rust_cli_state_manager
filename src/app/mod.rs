@@ -65,8 +65,10 @@ impl AppState {
         }
     }
 
-    pub fn create_mutation(mutation_type: &String, mutation_value: &String) -> Mutation {
+    pub fn create_mutation(mutation_type: &str, mutation_value: &str) -> Mutation {
         let value = mutation_value.to_string();
+        println!("TYPE {}", mutation_type);
+        println!("VALUE {}", mutation_value);
 
         let mutation = if mutation_type == CHANGE_EDITED_BY {
             Mutation::ChangeEditedBy(value)
