@@ -66,29 +66,27 @@ impl AppState {
     }
 
     pub fn create_mutation(mutation_type: &str, mutation_value: &str) -> Mutation {
-        let value = mutation_value.to_string();
-        println!("TYPE {}", mutation_type);
-        println!("VALUE {}", mutation_value);
+        let value = String::from(mutation_value);
 
-        let mutation = if mutation_type == CHANGE_EDITED_BY {
-            Mutation::ChangeEditedBy(value)
-
-        } else if mutation_type == CHANGE_IS_DAYTIME {
-            Mutation::ChangeIsDayTime(value)
-
-        } else if mutation_type == CHANGE_COLOR {
-            Mutation::ChangeColor(value)
-
-        } else if mutation_type == CHANGE_NUMBER_INCREMENT {
-            Mutation::ChangeNumberIncrease(value)
-
-        } else if mutation_type == CHANGE_NUMBER_DECREMENT {
-            Mutation::ChangeNumberDecrease(value)
-
-        } else {
-            Mutation::NoMutation()
-        };
-
-        mutation
+        match mutation_type {
+            CHANGE_EDITED_BY => {
+                Mutation::ChangeEditedBy(value)
+            }
+            CHANGE_IS_DAYTIME => {
+                Mutation::ChangeIsDayTime(value)
+            }
+            CHANGE_COLOR => {
+                Mutation::ChangeColor(value)
+            }
+            CHANGE_NUMBER_INCREMENT => {
+                Mutation::ChangeNumberIncrease(value)
+            }
+            CHANGE_NUMBER_DECREMENT => {
+                Mutation::ChangeNumberDecrease(value)
+            }
+            _ => {
+                Mutation::NoMutation()
+            }
+        }
     }
 }
