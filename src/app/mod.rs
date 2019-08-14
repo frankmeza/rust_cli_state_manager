@@ -1,5 +1,5 @@
 mod mutation;
-mod utils;
+pub mod utils;
 
 use mutation::Mutation;
 
