@@ -18,6 +18,7 @@ pub fn handle_change_color(
     color: &String,
     current_state: AppState,
 ) -> AppState {
+    // input needs to be all caps, i.e. "BLUE" | "RED" | "YELLOW"
     if color == BLUE {
         AppState { color: Color::Blue, ..current_state }
 
