@@ -9,14 +9,14 @@ const CHANGE_COLOR: &str = "CHANGE_COLOR";
 const CHANGE_NUMBER_INCREMENT: &str = "CHANGE_NUMBER_INCREMENT";
 const CHANGE_NUMBER_DECREMENT: &str = "CHANGE_NUMBER_DECREMENT";
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub enum Color {
     Blue,
     Red,
     Yellow,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct AppState {
     pub color: Color,
     pub number: i32,

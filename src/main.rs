@@ -58,42 +58,46 @@ fn get_mutation_type(mtype: &str) -> &str {
 }
 
 fn main() {
-    let state = app::AppState::new();
-
+    let mut state = app::AppState::new();
     println!("\n INITIAL_STATE IS {:?}\n", state);
-    print_mutation_types();
 
-    // creates receiver variable
-    let mut c1 = String::new();
-    io::stdin().read_line(&mut c1)
-        .unwrap()
-        .to_string();
+    loop {
+        print_mutation_types();
 
-    let choice_type: &str = c1.as_str().trim();
-    let mutation_type: &str = get_mutation_type(&choice_type);
+        // creates receiver variable for type
+        let mut c1 = String::new();
+        io::stdin().read_line(&mut c1)
+            .unwrap()
+            .to_string();
 
-    println!("You chose {}.\nNow choose your desired mutation: ", mutation_type);
+        let choice_type: &str = c1.as_str().trim();
+        let mutation_type: &str = get_mutation_type(&choice_type);
 
-    // creates a second receiver variable
-    let mut c2 = String::new();
-    io::stdin().read_line(&mut c2)
-        .unwrap()
-        .to_string();
+        println!("You chose {}.\nNow choose your desired mutation: ", mutation_type);
 
-    let mutation_value: &str = c2.as_str().trim();
-    println!("mutation value : {}", mutation_value);
+        // creates a second receiver variable for value
+        let mut c2 = String::new();
+        io::stdin().read_line(&mut c2)
+            .unwrap()
+            .to_string();
 
-    let new_mutation = app::AppState::create_mutation(
-        &mutation_type,
-        &mutation_value,
-    );
+        let mutation_value: &str = c2.as_str().trim();
+        println!("mutation value : {}", mutation_value);
 
-    println!("\n MUTATION IS {:?}", new_mutation);
+        let new_mutation = app::AppState::create_mutation(
+            &mutation_type,
+            &mutation_value,
+        );
 
-    let updated_state = app::AppState::receive_mutation(
-        state,
-        &new_mutation,
-    );
+        println!("\n MUTATION IS {:?}", new_mutation);
 
-    println!("\n UPDATED STATE IS {:?}", updated_state);
+        let updated_state = app::AppState::receive_mutation(
+            state,
+            &new_mutation,
+        );
+
+        state = updated_state;
+
+        println!("\n UPDATED STATE IS {:?}\n", state);
+    }
 }
