@@ -12,6 +12,8 @@ const CHANGE_IS_DAYTIME: &str = "CHANGE_IS_DAYTIME";
 const CHANGE_COLOR: &str = "CHANGE_COLOR";
 const CHANGE_NUMBER_INCREMENT: &str = "CHANGE_NUMBER_INCREMENT";
 const CHANGE_NUMBER_DECREMENT: &str = "CHANGE_NUMBER_DECREMENT";
+const EXIT: &str = "EXIT";
+const DEFAULT_ERROR: &str = "ERROR";
 
 
 pub fn handle_change_color(
@@ -49,8 +51,7 @@ pub fn handle_change_is_daytime(
     current_state: AppState,
 ) -> AppState {
     let is_daytime = if is_daytime_bool == "true"
-        { true }
-        else { false };
+        { true } else { false };
 
     AppState {
         is_daytime, ..current_state
@@ -80,16 +81,18 @@ pub fn handle_change_number_decrease(
 pub fn print_mutation_types() -> () {
     let prompts = vec![
         CHOOSE,
-        "press 1 for :",
-        CHANGE_EDITED_BY,
-        "press 2 for :",
+        "press 1 to change a boolean:",
         CHANGE_IS_DAYTIME,
-        "press 3 for :",
+        "press 2 to change an enum:",
         CHANGE_COLOR,
-        "press 4 for :",
+        "press 3 to increment by your number :",
         CHANGE_NUMBER_INCREMENT,
-        "press 5 for :",
+        "press 4 to decrement by your number :",
         CHANGE_NUMBER_DECREMENT,
+        "press 5 to change the edited_by field:",
+        CHANGE_EDITED_BY,
+        "EXIT to exit",
+        EXIT,
     ];
 
     for p in &prompts {
@@ -115,10 +118,10 @@ pub fn get_mutation_type(mtype: &str) -> &str {
             CHANGE_NUMBER_DECREMENT
         }
         "EXIT" => {
-            "byeeee"
+            EXIT
         }
         _ => {
-            "very virus"
+            DEFAULT_ERROR
         }
     }
 }
