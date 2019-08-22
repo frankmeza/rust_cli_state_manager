@@ -81,17 +81,17 @@ pub fn handle_change_number_decrease(
 pub fn print_mutation_types() -> () {
     let prompts = vec![
         CHOOSE,
-        "press 1 to change a boolean:",
+        "\npress 1 to change a boolean:",
         CHANGE_IS_DAYTIME,
-        "press 2 to change an enum:",
+        "\npress 2 to change an enum:",
         CHANGE_COLOR,
-        "press 3 to increment by your number :",
+        "\npress 3 to increment by your number:",
         CHANGE_NUMBER_INCREMENT,
-        "press 4 to decrement by your number :",
+        "\npress 4 to decrement by your number:",
         CHANGE_NUMBER_DECREMENT,
-        "press 5 to change the edited_by field:",
+        "\npress 5 to change the edited_by field:",
         CHANGE_EDITED_BY,
-        "EXIT to exit",
+        "\n EXIT to exit",
         EXIT,
     ];
 
@@ -103,19 +103,19 @@ pub fn print_mutation_types() -> () {
 pub fn get_mutation_type(mtype: &str) -> &str {
     match mtype {
         "1" => {
-            CHANGE_EDITED_BY
-        }
-        "2" => {
             CHANGE_IS_DAYTIME
         }
-        "3" => {
+        "2" => {
             CHANGE_COLOR
         }
-        "4" => {
+        "3" => {
             CHANGE_NUMBER_INCREMENT
         }
-        "5" => {
+        "4" => {
             CHANGE_NUMBER_DECREMENT
+        }
+        "5" => {
+            CHANGE_EDITED_BY
         }
         "EXIT" => {
             EXIT
