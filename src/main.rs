@@ -1,28 +1,9 @@
 use std::{process, io};
 
-extern crate ws;
-use ws::{
-    connect,
-    // listen,
-    CloseCode,
-};
-
 mod app;
 use app::utils;
 
-fn send_ws_msg(mtype: &str, mvalue: &str) -> () {
-    connect("ws://127.0.0.1:3012", |out| {
-        let send_type = format!("TYPE: {}", mtype);
-        let send_value = format!("VALUE: {}", mvalue);
-
-        out.send(send_type).unwrap();
-        out.send(send_value).unwrap();
-
-        move |_msg| {
-            out.close(CloseCode::Normal)
-        }
-    }).unwrap()
-}
+mod ws_client;
 
 fn main() {
     let mut state = app::AppState::new();
@@ -73,6 +54,6 @@ fn main() {
         state = updated_state;
         println!("\n UPDATED STATE IS {:?}\n", state);
 
-        send_ws_msg(mutation_type, mutation_value);
+        ws_client::connect_ws(mutation_type, mutation_value);
     }
 }
