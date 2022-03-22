@@ -1,7 +1,7 @@
 use super::{AppState, Color};
 
 // colors
-const BLUE: &str ="BLUE";
+const BLUE: &str = "BLUE";
 const RED: &str = "RED";
 const YELLOW: &str = "YELLOW";
 
@@ -15,46 +15,44 @@ const CHANGE_NUMBER_DECREMENT: &str = "CHANGE_NUMBER_DECREMENT";
 const EXIT: &str = "EXIT";
 const DEFAULT_ERROR: &str = "ERROR";
 
-
-pub fn handle_change_color(
-    color: &String,
-    current_state: AppState,
-) -> AppState {
-    // input needs to be all caps, i.e. "BLUE" | "RED" | "YELLOW"
-    if color == BLUE {
-        AppState { color: Color::Blue, ..current_state }
-
-    } else if color == RED {
-        AppState { color: Color::Red, ..current_state }
-
-    } else if color == YELLOW {
-        AppState { color: Color::Yellow, ..current_state }
-
-    } else {
-        println!("SOMETHING_DEFAULTED!!!");
-        AppState { ..current_state }
+pub fn handle_change_color(color: &str, current_state: AppState) -> AppState {
+    match color {
+        BLUE => AppState {
+            color: Color::Blue,
+            ..current_state
+        },
+        RED => AppState {
+            color: Color::Red,
+            ..current_state
+        },
+        YELLOW => AppState {
+            color: Color::Yellow,
+            ..current_state
+        },
+        _ => {
+            println!("SOMETHING_DEFAULTED!!!");
+            AppState { ..current_state }
+        }
     }
 }
 
-pub fn handle_change_edited_by(
-    edited_by: &String,
-    current_state: AppState,
-) -> AppState {
+pub fn handle_change_edited_by(edited_by: &String, current_state: AppState) -> AppState {
     AppState {
         edited_by: edited_by.to_string(),
         ..current_state
     }
 }
 
-pub fn handle_change_is_daytime(
-    is_daytime_bool: &String,
-    current_state: AppState,
-) -> AppState {
-    let is_daytime = if is_daytime_bool == "true"
-        { true } else { false };
+pub fn handle_change_is_daytime(is_daytime_bool: &String, current_state: AppState) -> AppState {
+    let is_daytime = if is_daytime_bool == "true" {
+        true
+    } else {
+        false
+    };
 
     AppState {
-        is_daytime, ..current_state
+        is_daytime,
+        ..current_state
     }
 }
 
@@ -65,7 +63,10 @@ pub fn handle_change_number_increase(
     let number: i32 = number_as_string.parse().unwrap();
     let new_number = current_state.number + number;
 
-    AppState { number: new_number, ..current_state }
+    AppState {
+        number: new_number,
+        ..current_state
+    }
 }
 
 pub fn handle_change_number_decrease(
@@ -75,7 +76,10 @@ pub fn handle_change_number_decrease(
     let number: i32 = number_as_string.parse().unwrap();
     let new_number = current_state.number - number;
 
-    AppState { number: new_number, ..current_state }
+    AppState {
+        number: new_number,
+        ..current_state
+    }
 }
 
 pub fn print_mutation_types() -> () {
@@ -100,28 +104,14 @@ pub fn print_mutation_types() -> () {
     }
 }
 
-pub fn get_mutation_type(mtype: &str) -> &str {
-    match mtype {
-        "1" => {
-            CHANGE_EDITED_BY
-        }
-        "2" => {
-            CHANGE_IS_DAYTIME
-        }
-        "3" => {
-            CHANGE_COLOR
-        }
-        "4" => {
-            CHANGE_NUMBER_INCREMENT
-        }
-        "5" => {
-            CHANGE_NUMBER_DECREMENT
-        }
-        "EXIT" => {
-            EXIT
-        }
-        _ => {
-            DEFAULT_ERROR
-        }
+pub fn get_mutation_type(mutation_type: &str) -> &str {
+    match mutation_type {
+        "1" => CHANGE_EDITED_BY,
+        "2" => CHANGE_IS_DAYTIME,
+        "3" => CHANGE_COLOR,
+        "4" => CHANGE_NUMBER_INCREMENT,
+        "5" => CHANGE_NUMBER_DECREMENT,
+        "EXIT" => EXIT,
+        _ => DEFAULT_ERROR,
     }
 }
